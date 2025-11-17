@@ -1,8 +1,7 @@
 package com.example.squaregames;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -18,4 +17,9 @@ public class GameCatalogController {
     {
         return gameCatalog.getGameIdentifiers();
     }
+
+    public String createGame(@RequestBody GameCreationParams params) {
+        return gameCatalog.createGame(params);
+    }
+
 }

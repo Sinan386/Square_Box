@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class GameCatalogImpl implements GameCatalog {
@@ -15,5 +16,11 @@ public class GameCatalogImpl implements GameCatalog {
     public Collection<String> getGameIdentifiers() {
 
         return List.of(ticTacToeFactory.getGameFactoryId());
+    }
+
+    @Override
+    public String createGame(GameCreationParams params) {
+        // TODO - actually create a new game
+        return UUID.randomUUID().toString();
     }
 }
