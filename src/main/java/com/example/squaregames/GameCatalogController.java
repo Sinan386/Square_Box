@@ -15,11 +15,19 @@ public class GameCatalogController {
     @GetMapping("/games")
     public Collection<String> listGames()
     {
+
         return gameCatalog.getGameIdentifiers();
     }
 
+    @PostMapping("/games")
     public String createGame(@RequestBody GameCreationParams params) {
+
         return gameCatalog.createGame(params);
+    }
+
+    @GetMapping("/games/{GameId}")
+    public String getGame(String gameId) {
+        return gameId;
     }
 
 }

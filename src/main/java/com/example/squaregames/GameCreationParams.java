@@ -16,8 +16,8 @@ public class GameCreationParams {
 
     public int getPlayerCount() {
         return playerCount;
-
     }
+
     public void setPlayerCount(int playerCount) {
         this.playerCount = playerCount;
     }
@@ -25,6 +25,7 @@ public class GameCreationParams {
     public int getBoardSize() {
         return boardSize;
     }
+
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
     }

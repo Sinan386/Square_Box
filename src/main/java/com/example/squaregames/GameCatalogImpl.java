@@ -14,7 +14,6 @@ public class GameCatalogImpl implements GameCatalog {
 
     @Override
     public Collection<String> getGameIdentifiers() {
-
         return List.of(ticTacToeFactory.getGameFactoryId());
     }
 
