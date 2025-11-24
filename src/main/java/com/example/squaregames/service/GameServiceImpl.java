@@ -1,54 +1,53 @@
 package com.example.squaregames.service;
 
 import com.example.squaregames.dto.GameCreationParams;
+import com.example.squaregames.plugin.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
-import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class GameServiceImpl implements GameService {
 
-    private final TicTacToeGameFactory ticTacToeFactory = new TicTacToeGameFactory();
-    private final ConnectFourGameFactory connectFourFactory = new ConnectFourGameFactory();
+    @Autowired
+    private List<GamePlugin> plugins; // Spring injecte tous les GamePlugin (@Component)
 
+    private Map<String, Game> games = new HashMap<>(); // clé(id) -> valeur(objet)
 
-    public GameServiceImpl() {
-        System.out.println("TicTacToe id      = " + ticTacToeFactory.getGameFactoryId());
-        System.out.println("ConnectFour id    = " + connectFourFactory.getGameFactoryId());
-    }
-
+    @Override
     public String createGame(GameCreationParams params) {
-
-        Game game;
-
-        switch (params.getType()) {
-            case "tictactoe":
-                game = ticTacToeFactory.createGame(
-                        params.getPlayerCount(),
-                        params.getBoardSize()
-                );
+        // cherche un plugin
+        GamePlugin plugin = null;
+        for (GamePlugin p : plugins) {
+            if (p.getId().equals(params.getType())) {
+                plugin = p;
                 break;
-
-            case "connect4":  
-                game = connectFourFactory.createGame(
-                        params.getPlayerCount(),
-                        params.getBoardSize()
-                );
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown game type: " + params.getType());
+            }
         }
 
-        return UUID.randomUUID().toString();
+        if (plugin == null) {
+            throw new IllegalArgumentException("Unknown game type: " + params.getType());
+        }
+
+        Game game = plugin.createGame(
+                params.getPlayerCount(),
+                params.getBoardSize()
+        );
+
+
+        String gameId = UUID.randomUUID().toString();
+        games.put(gameId, game);
+
+        return gameId;
     }
 
     @Override
     public Object getGame(String gameId) {
-        return null;
+        return games.get(gameId);
     }
 }
