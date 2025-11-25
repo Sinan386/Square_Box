@@ -1,5 +1,6 @@
 package com.example.squaregames.service;
 
+import com.example.squaregames.dao.GameDAO;
 import com.example.squaregames.dto.GameCreationParams;
 import com.example.squaregames.plugin.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
@@ -15,13 +16,16 @@ import java.util.UUID;
 public class GameServiceImpl implements GameService {
 
     @Autowired
-    private List<GamePlugin> plugins; // Spring injecte tous les GamePlugin (@Component)
+    private List<GamePlugin> plugins;         // tous les plugins disponibles
 
-    private Map<String, Game> games = new HashMap<>(); // clé(id) -> valeur(objet)
+    private Map<String, Game> games = new HashMap<>(); // id -> Game (moteur)
+
+    @Autowired
+    private GameDAO gameDAO;                 // ton DAO avec save(String id, int boardSize)
 
     @Override
     public String createGame(GameCreationParams params) {
-        // cherche un plugin
+        // 1) chercher le bon plugin en fonction de type
         GamePlugin plugin = null;
         for (GamePlugin p : plugins) {
             if (p.getId().equals(params.getType())) {
@@ -34,15 +38,15 @@ public class GameServiceImpl implements GameService {
             throw new IllegalArgumentException("Unknown game type: " + params.getType());
         }
 
+
         Game game = plugin.createGame(
                 params.getPlayerCount(),
                 params.getBoardSize()
         );
 
-
         String gameId = UUID.randomUUID().toString();
         games.put(gameId, game);
-
+        gameDAO.save(gameId, params.getBoardSize());
         return gameId;
     }
 

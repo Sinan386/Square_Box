@@ -20,7 +20,7 @@ public class GameDTO {
 
     public GameDTO(String id, String name, int playerCount, int boardSize) {
         this.id = id;
-        this.name = this.name;
+        this.name = name;
         this.playerCount = playerCount;
         this.boardSize = boardSize;
     }
