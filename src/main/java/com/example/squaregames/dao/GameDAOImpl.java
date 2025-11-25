@@ -3,6 +3,7 @@ package com.example.squaregames.dao;
 import com.example.squaregames.dto.GameDTO;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,17 +15,18 @@ import java.util.Map;
 @Service
 public class GameDAOImpl implements GameDAO {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/squaregame";
-    private static final String USER = "root";
-    private static final String PASSWORD = "fakepassword";
+    private final DataSource dataSource;
+
+
     private Connection conn;
 
 
-    public GameDAOImpl() {
+    public GameDAOImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
 
 
         try {
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            conn = dataSource.getConnection();
 
             if (conn != null) {
                 System.out.println("Connected to MySQL!");
@@ -34,6 +36,7 @@ public class GameDAOImpl implements GameDAO {
                 SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 
