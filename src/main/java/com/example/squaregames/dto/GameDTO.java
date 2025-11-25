@@ -12,13 +12,18 @@ public class GameDTO {
     public GameDTO() {}
 
 
-    public GameDTO(String id, String type, int playerCount, int boardSize) {
+    public GameDTO(String id, String type) {
+        this.id = id;
+        this.type = type;
+
+    }
+
+    public GameDTO(String id, String name, int playerCount, int boardSize) {
         this.id = id;
         this.type = type;
         this.playerCount = playerCount;
         this.boardSize = boardSize;
     }
-
 
 
     public String getId() {

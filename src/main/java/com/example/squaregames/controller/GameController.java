@@ -19,8 +19,10 @@ public class GameController {
     }
 
     @GetMapping("/games/{gameId}")
-    public String getGame(@PathVariable String gameId) {
-        System.out.printf("getGame(%s)", gameId);
-        return gameId;
+    public Object getGame(@PathVariable String gameId) {
+        System.out.printf("getGame(%s)%n", gameId);
+        return gameService.getGame(gameId);
     }
+
 }
+
