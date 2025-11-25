@@ -4,7 +4,7 @@ package com.example.squaregames.dto;
 public class GameDTO {
 
     private String id;
-    private String type;
+    private String name;
     private int playerCount;
     private int boardSize;
 
@@ -14,13 +14,13 @@ public class GameDTO {
 
     public GameDTO(String id, String type) {
         this.id = id;
-        this.type = type;
+        this.name = type;
 
     }
 
     public GameDTO(String id, String name, int playerCount, int boardSize) {
         this.id = id;
-        this.type = type;
+        this.name = this.name;
         this.playerCount = playerCount;
         this.boardSize = boardSize;
     }
@@ -34,12 +34,12 @@ public class GameDTO {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPlayerCount() {

@@ -20,18 +20,20 @@ public class GameCatalogController {
 
     @GetMapping("/games")
     public List<GameDTO> listGames(Locale locale) {
+
+        System.out.println("Locale utilisée dans /games = " + locale);
+
+
         List<GameDTO> result = new ArrayList<>();
 
         for (GamePlugin plugin : plugins) {
             String id = plugin.getId();           // ex: "tictactoe" ou "connect4"
             String name = plugin.getName(locale); // ex: "Morpion" / "Puissance 4" en fr
-
             GameDTO info = new GameDTO(id, name);
             result.add(info);
         }
 
         return result;
-
     }
 
 }
