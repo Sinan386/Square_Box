@@ -1,16 +1,24 @@
 package com.example.squaregames.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-//@Entity
+@Entity
+@Table(name = "game")
 public class GameDTO {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Column(name = "id")
     private String id;
+
+    @Column(name = "gameType")
     private String name;
+
+    @Column(name = "PlayerCount")
     private int playerCount;
+
+    @Column(name = "boardSize")
     private int boardSize;
 
 

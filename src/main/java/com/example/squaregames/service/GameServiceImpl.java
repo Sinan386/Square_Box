@@ -1,6 +1,7 @@
 package com.example.squaregames.service;
 
 import com.example.squaregames.dao.GameDAO;
+import com.example.squaregames.dao.GameRepository;
 import com.example.squaregames.dto.GameCreationParams;
 import com.example.squaregames.dto.GameDTO;
 import com.example.squaregames.plugin.GamePlugin;
@@ -22,7 +23,7 @@ public class GameServiceImpl implements GameService {
     private Map<String, Game> games = new HashMap<>(); // id -> Game (moteur)
 
     @Autowired
-    private GameDAO gameDAO;                 //  DAO avec save(String id, int boardSize)
+    private GameRepository gameRespoitory;                 //  JPA
 
     @Override
     public String createGame(GameCreationParams params) {
@@ -47,7 +48,15 @@ public class GameServiceImpl implements GameService {
 
         String gameId = UUID.randomUUID().toString();
         games.put(gameId, game);
-        gameDAO.save(gameId, params.getBoardSize());
+
+        GameDTO gameDTO = new GameDTO();
+        entity.setId(gameId);
+        entity.setName(params.getType());         // "tictactoe" / "connect4"
+        entity.setPlayerCount(params.getPlayerCount());
+        entity.setBoardSize(params.getBoardSize());
+
+        gameRespoitory.save(entity); // Le JPA fait L'INSERT TOUT SEUL !
+
         return gameId;
     }
 

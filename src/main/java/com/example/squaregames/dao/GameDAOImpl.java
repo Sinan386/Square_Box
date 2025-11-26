@@ -54,7 +54,7 @@ public class GameDAOImpl implements GameDAO {
                 gameDTO.setId(results.getString("id"));
                 gameDTO.setBoardSize(results.getInt("boardSize"));
 
-                        return GameDTO;
+                        return gameDTO;
             }
 
         } catch (SQLException e) {
@@ -65,16 +65,25 @@ public class GameDAOImpl implements GameDAO {
 
     @Override
     public void save(String id, int boardSize) {
+        System.out.println(">>> DAO.save appelé avec id=" + id + ", boardSize=" + boardSize);
+
         try {
             Statement statement = conn.createStatement();
-            statement.executeUpdate("INSERT INTO `game` VALUES ('" + id + "'," + boardSize + ")");
+
+            String sql = "INSERT INTO game (id, boardSize) VALUES ('" + id + "', " + boardSize + ")";
+            System.out.println(">>> SQL = " + sql);
+
+            int rows = statement.executeUpdate(sql);
+            System.out.println(">>> INSERT OK, rows=" + rows);
         } catch (SQLException e) {
+            System.out.println(">>> ERREUR SQL DANS save()");
             e.printStackTrace();
         }
     }
 
 
-        @Override
+
+    @Override
         public void update (String id){
 
         }
