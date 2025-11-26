@@ -1,6 +1,9 @@
 package com.example.squaregames.service;
 
 import com.example.squaregames.dto.GameCreationParams;
+import fr.le_campus_numerique.square_games.engine.Game;
+
+import java.util.UUID;
 
 
 public interface GameService {
@@ -8,7 +11,8 @@ public interface GameService {
     String createGame(GameCreationParams params);
 
 
-    Object getGame(String gameId);
+    Game getGame(String gameId);
 
 
+    Game getById(UUID gameId);
 }

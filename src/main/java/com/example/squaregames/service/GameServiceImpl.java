@@ -2,6 +2,7 @@ package com.example.squaregames.service;
 
 import com.example.squaregames.dao.GameDAO;
 import com.example.squaregames.dto.GameCreationParams;
+import com.example.squaregames.dto.GameDTO;
 import com.example.squaregames.plugin.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.Game;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class GameServiceImpl implements GameService {
     private Map<String, Game> games = new HashMap<>(); // id -> Game (moteur)
 
     @Autowired
-    private GameDAO gameDAO;                 // ton DAO avec save(String id, int boardSize)
+    private GameDAO gameDAO;                 //  DAO avec save(String id, int boardSize)
 
     @Override
     public String createGame(GameCreationParams params) {
@@ -51,7 +52,25 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Object getGame(String gameId) {
+    public Game getGame(String gameId) {
+
+        GameDTO dto = gameDAO.getById(gameId.toString()); // Lecture en bdd via le DAO
+        if (dto != null) {
+            System.out.println("Depuis la BDD : id=" + dto.getId() + ", boardSize=" + dto.getBoardSize());
+        } else {
+            System.out.println("Aucun enregistrement en BDD pour id=" + gameId);
+        }
+
         return games.get(gameId);
     }
-}
+
+    @Override
+    public Game getById(UUID gameId) {
+        return null;
+    }
+
+
+//    public Object getGame(String gameId) {
+//        return games.get(gameId);
+    }
+

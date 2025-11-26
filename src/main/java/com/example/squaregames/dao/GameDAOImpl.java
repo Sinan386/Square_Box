@@ -4,13 +4,14 @@ import com.example.squaregames.dto.GameDTO;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 @Service
 public class GameDAOImpl implements GameDAO {
@@ -22,23 +23,18 @@ public class GameDAOImpl implements GameDAO {
 
 
     public GameDAOImpl(DataSource dataSource) {
-        this.dataSource = dataSource;
-
-
         try {
             conn = dataSource.getConnection();
 
             if (conn != null) {
                 System.out.println("Connected to MySQL!");
             }
-
         } catch (
                 SQLException e) {
             e.printStackTrace();
         }
-
+        this.dataSource = dataSource;
     }
-
 
     private final Map<String, GameDTO> data = new HashMap<>();
 
@@ -49,7 +45,22 @@ public class GameDAOImpl implements GameDAO {
 
     @Override
     public GameDTO getById(String id) {
-        return data.get(id);   // null si pas trouvé, ça va pour l’instant
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet results = statement.executeQuery("SELECT * FROM game WHERE id = '" + id + "'");
+
+            if (results.next()) {
+                GameDTO gameDTO = new GameDTO();
+                gameDTO.setId(results.getString("id"));
+                gameDTO.setBoardSize(results.getInt("boardSize"));
+
+                        return GameDTO;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

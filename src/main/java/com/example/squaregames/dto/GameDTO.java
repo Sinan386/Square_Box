@@ -1,7 +1,12 @@
 package com.example.squaregames.dto;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+//@Entity
 public class GameDTO {
+
+    @Id
 
     private String id;
     private String name;
@@ -35,8 +40,9 @@ public class GameDTO {
     }
 
     public String getName() {
-        return name;
+        return id;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -56,6 +62,11 @@ public class GameDTO {
 
     public void setBoardSize(int boardSize) {
         this.boardSize = boardSize;
+    }
+
+    @Override
+    public String toString() {
+        return this.boardSize + " " + this.playerCount + " " + this.id;
     }
 }
 
