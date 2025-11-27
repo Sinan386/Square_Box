@@ -7,16 +7,16 @@ import jakarta.persistence.*;
 public class GameDTO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "id")
-    private String id;
+    private String id;      // on garde le UUID.toString()
 
     @Column(name = "gameType")
-    private String name;
+    private String name;    // colonne gameType
 
-    @Column(name = "PlayerCount")
-    private int playerCount;
+
+
+//    @Column(name = "playerCount")
+//    private int playerCount;
 
     @Column(name = "boardSize")
     private int boardSize;
@@ -34,7 +34,7 @@ public class GameDTO {
     public GameDTO(String id, String name, int playerCount, int boardSize) {
         this.id = id;
         this.name = name;
-        this.playerCount = playerCount;
+//        this.playerCount = playerCount;
         this.boardSize = boardSize;
     }
 
@@ -48,7 +48,7 @@ public class GameDTO {
     }
 
     public String getName() {
-        return id;
+        return name;
     }
 
 
@@ -56,13 +56,13 @@ public class GameDTO {
         this.name = name;
     }
 
-    public int getPlayerCount() {
-        return playerCount;
-    }
-
-    public void setPlayerCount(int playerCount) {
-        this.playerCount = playerCount;
-    }
+//    public int getPlayerCount() {
+//        return playerCount;
+//    }
+//
+//    public void setPlayerCount(int playerCount) {
+//        this.playerCount = playerCount;
+//    }
 
     public int getBoardSize() {
         return boardSize;
@@ -74,7 +74,7 @@ public class GameDTO {
 
     @Override
     public String toString() {
-        return this.boardSize + " " + this.playerCount + " " + this.id;
+        return this.boardSize + " " + this.name + " " + this.id;
     }
 }
 

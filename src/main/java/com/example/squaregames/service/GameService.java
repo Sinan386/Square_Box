@@ -8,11 +8,11 @@ import java.util.UUID;
 
 public interface GameService {
 
-    String createGame(GameCreationParams params);
+    //String createGame(GameCreationParams params);
 
 
-    Game getGame(String gameId);
+    //Game getGame(String gameId);
 
 
-    Game getById(UUID gameId);
+    //Game getById(UUID gameId);
 }

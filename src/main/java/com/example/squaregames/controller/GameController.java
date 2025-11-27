@@ -1,5 +1,7 @@
 package com.example.squaregames.controller;
 
+import com.example.squaregames.dao.jpa.GameModel;
+import com.example.squaregames.dao.jpa.GameRepository;
 import com.example.squaregames.dto.GameCreationParams;
 import com.example.squaregames.service.GameService;
 import fr.le_campus_numerique.square_games.engine.Game;
@@ -12,15 +14,23 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
+    @Autowired
+    private GameRepository gameRepository;
+
+
+
     @PostMapping("/games")
-    public String createGame(@RequestBody GameCreationParams params) {
-        return gameService.createGame(params);
+    public GameModel createGame(@RequestBody GameCreationParams params) {
+        GameModel gameModel = GameModel.from(params);
+        return gameRepository.save(gameModel);
+//        return gameService.createGame(params);
     }
 
     @GetMapping("/games/{gameId}")
     public Game getGame(@PathVariable String gameId) {
         System.out.printf("getGame(%s)%n", gameId);
-        return gameService.getGame(gameId);
+//        return gameService.getGame(gameId);
+        return null;
     }
 
 
