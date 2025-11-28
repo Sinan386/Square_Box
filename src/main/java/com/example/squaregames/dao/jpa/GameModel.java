@@ -1,31 +1,58 @@
 package com.example.squaregames.dao.jpa;
 
 import com.example.squaregames.dto.GameCreationParams;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.UUID;
+import jakarta.persistence.Table;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "game")   // nom EXACT de la table MySQL
 public class GameModel {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
 
+    @Id
+    @Column(name = "id")          // colonne "id" (varchar(255))
+    private String id;
+
+    @Column(name = "boardSize")   // colonne EXACTE en BDD
     private int boardSize;
 
+    @Column(name = "gameType")    // colonne EXACTE en BDD
     private String gameType;
 
-    public static GameModel from(GameCreationParams params) {
-        GameModel gameModel = new GameModel();
-        gameModel.setBoardSize(params.getBoardSize());
-        gameModel.setGameType(params.getType());
+    public GameModel() {}
 
-        return  gameModel;
+    // -------- getters / setters --------
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public void setBoardSize(int boardSize) {
+        this.boardSize = boardSize;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    // -------- helper pour créer depuis les params --------
+    public static GameModel from(String id, GameCreationParams params) {
+        GameModel g = new GameModel();
+        g.setId(id);
+        g.setBoardSize(params.getBoardSize());
+        g.setGameType(params.getType());
+        return g;
     }
 }

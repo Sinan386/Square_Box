@@ -1,18 +1,18 @@
-package com.example.squaregames.dao.jdbc;
-
-
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface GameDAO {}
-
-//    public Collection<GameDTO> getAll();
+//package com.example.squaregames.dao.jdbc;
 //
-//    public GameDTO getById(String id);
 //
-//    public void save(String id, int boardSize);
+//import org.springframework.stereotype.Repository;
 //
-//    public void update(String id);
+//@Repository
+//public interface GameDAO {}
 //
-//    public void delete(String id);
-//}
+////    public Collection<GameDTO> getAll();
+////
+////    public GameDTO getById(String id);
+////
+////    public void save(String id, int boardSize);
+////
+////    public void update(String id);
+////
+////    public void delete(String id);
+////}
